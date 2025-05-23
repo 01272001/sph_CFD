@@ -325,8 +325,7 @@ class SPH:
     def Density(self, delta_time):
         
         # Sort keys for consistent processing order
-        keys = list(self.interactionPairs.keys())
-        keys.sort()
+        keys = sorted(list(self.interactionPairs.keys()))
         
         for i in keys:
             neighbors = self.interactionPairs[i]  # Get neighbors of particle i
@@ -405,8 +404,7 @@ class SPH:
     def visc(self):
         """Calculate artificial viscosity"""        
         # Sort keys for consistent processing order
-        keys = list(self.interactionPairs.keys())
-        keys.sort()       
+        keys = sorted(list(self.interactionPairs.keys()))      
         for i in keys:
             neighbors = self.interactionPairs[i]  # Get neighbors of particle i
             visc_x, visc_y = 0.0, 0.0            
@@ -465,8 +463,7 @@ class SPH:
     def PressureGradient(self):
         """Calculate pressure gradient force"""
         # Sort keys for consistent processing order
-        keys = list(self.interactionPairs.keys())
-        keys.sort()
+        keys = sorted(list(self.interactionPairs.keys()))
         
         for i in keys:
             neighbors = self.interactionPairs[i]  # Get neighbors of particle i
@@ -519,8 +516,7 @@ class SPH:
     def Morris(self):
         """Calculate Morris viscosity"""
         # Sort keys for consistent processing order
-        keys = list(self.interactionPairs.keys())
-        keys.sort()        
+        keys = sorted(list(self.interactionPairs.keys()))       
         for i in keys:
             neighbors = self.interactionPairs[i]  # Get neighbors of particle i
             VX, VY = 0.0, 0.0            
@@ -748,7 +744,7 @@ class SPH:
             plt.show()   
 
     def divergence_distance(self):
-        """真正体现方向性的 SPH 散度计算"""
+        
         keys = list(self.interactionPairs.keys())
         keys.sort()
         epsilon = 1e-17
@@ -768,7 +764,7 @@ class SPH:
                 r = math.sqrt(dx**2 + dy**2)
                 R = r / self.h
 
-                # 核函数梯度仍然以粒子 i 为中心 ∇_i W_ij
+               
                 dW = self.kernel_cubic_core(self.h, R)
                 gradW_x = - dW * dx / (r + epsilon)
                 gradW_y = - dW * dy / (r + epsilon)
